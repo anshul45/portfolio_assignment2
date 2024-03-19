@@ -6,7 +6,7 @@ const Index = () => {
   const [fetchedData, setFetchedData] = useState([])
 
   const apiData = async () => {
-    const data = await fetch("http://localhost:3000/api/data");
+    const data = await fetch("https://portfolio-assignment2.vercel.app/api/data");
     const userData = await data.json();
     setFetchedData(userData.user)
   }
