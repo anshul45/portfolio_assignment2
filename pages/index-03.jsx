@@ -8,14 +8,32 @@ import Layout from "@/src/layouts/Layout";
 import Services from "@/src/components/Services";
 import TypingAnimation from "@/src/components/TypingAnimation";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import Preloader from "@/src/layouts/Preloader";
 
 const Work = dynamic(() => import("@/src/components/Work"), {
   ssr: false,
 });
 
 const Index3 = () => {
+  const [fetchedData, setFetchedData] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const apiData = async () => {
+    setLoading(true)
+    const data = await fetch("http://localhost:3000/api/data");
+    const userData = await data.json();
+    setFetchedData(userData.user)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    apiData()
+  }, [])
+
   return (
     <Layout headerColor={"dark"}>
+      {loading && <Preloader />}
       {/* Home Banner */}
       <section id="home" className="home-banner-01">
         <div className="container">
@@ -23,14 +41,12 @@ const Index3 = () => {
             <div className="col-md-6">
               <div className="ht-text">
                 <h6>Hello there...</h6>
-                <h1>Tony Smith</h1>
+                <h1>{fetchedData?.about?.name}</h1>
                 <h2>
-                  I Am Passionate <TypingAnimation />
+                  I Am Passionate <TypingAnimation text={fetchedData?.about?.title} />
                 </h2>
                 <p>
-                  The namics of how users interact with interactive elements
-                  within a user interface flow chart based on container
-                  proportion.
+                  {fetchedData?.about?.subTitle}
                 </p>
                 <div className="btn-bar go-to">
                   <a className="m-btn m-btn-theme" href="#work">
@@ -43,7 +59,7 @@ const Index3 = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <img src="static/img/home-about.png" alt="image" />
+              <img src={fetchedData?.about?.avatar?.url} alt="image" />
             </div>
           </div>
         </div>
@@ -56,24 +72,24 @@ const Index3 = () => {
 
       {/* End Home Banner */}
       {/* about us */}
-      <About />
+      <About data={fetchedData?.about} email={fetchedData?.email} />
       {/* end about us */}
       {/* fun */}
-      <Skills />
+      <Skills data={fetchedData?.skills} title={fetchedData?.about?.title} />
       {/* End fun */}
       {/* resume */}
-      <Services />
+      <Services data={fetchedData?.services} title={fetchedData?.about?.title} />
       {/* End resume */}
       {/* Work */}
-      <Work />
+      <Work data={fetchedData?.projects} title={fetchedData?.about?.title} />
       {/* End work */}
       {/* Testiminails */}
-      <Testiminails />
+      <Testiminails data={fetchedData?.testimonials} title={fetchedData?.about?.title} />
       {/* End Testiminails */}
       {/* Blog */}
-      <Blog />
+      <Blog title={fetchedData?.about?.title} />
       {/* End Blog */}
-      <Contact />
+      <Contact title={fetchedData?.about?.title} contactEmail={fetchedData?.email} phone={fetchedData?.about?.phoneNumber} address={fetchedData?.about?.address} />
     </Layout>
   );
 };

@@ -8,14 +8,32 @@ import Layout from "@/src/layouts/Layout";
 import Services from "@/src/components/Services";
 import ParticlesBackground from "@/src/ParticlesBackground";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import Preloader from "@/src/layouts/Preloader";
 
 const Work = dynamic(() => import("@/src/components/Work"), {
   ssr: false,
 });
 
 const Index4 = () => {
+  const [fetchedData, setFetchedData] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const apiData = async () => {
+    setLoading(true)
+    const data = await fetch("http://localhost:3000/api/data");
+    const userData = await data.json();
+    setFetchedData(userData.user)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    apiData()
+  }, [])
+
   return (
     <Layout>
+      {loading && <Preloader />}
       {/* Home Banner */}
       <section
         id="home"
@@ -30,7 +48,7 @@ const Index4 = () => {
             <div className="col-12">
               <div className="ht-text text-center">
                 <h6>Hello There!</h6>
-                <h1>I'm Tony Smith</h1>
+                <h1>I'm {fetchedData?.about?.name}</h1>
                 <div className="nav social-icons justify-content-center">
                   <a href="#">
                     <i className="fab fa-facebook-f" />
@@ -61,24 +79,24 @@ const Index4 = () => {
 
       {/* End Home Banner */}
       {/* about us */}
-      <About />
+      <About data={fetchedData?.about} email={fetchedData?.email} />
       {/* end about us */}
       {/* fun */}
-      <Skills />
+      <Skills data={fetchedData?.skills} title={fetchedData?.about?.title} />
       {/* End fun */}
       {/* resume */}
-      <Services />
+      <Services data={fetchedData?.services} title={fetchedData?.about?.title} />
       {/* End resume */}
       {/* Work */}
-      <Work />
+      <Work data={fetchedData?.projects} title={fetchedData?.about?.title} />
       {/* End work */}
       {/* Testiminails */}
-      <Testiminails />
+      <Testiminails data={fetchedData?.testimonials} title={fetchedData?.about?.title} />
       {/* End Testiminails */}
       {/* Blog */}
-      <Blog />
+      <Blog title={fetchedData?.about?.title} />
       {/* End Blog */}
-      <Contact />
+      <Contact title={fetchedData?.about?.title} contactEmail={fetchedData?.email} phone={fetchedData?.about?.phoneNumber} address={fetchedData?.about?.address} />
     </Layout>
   );
 };

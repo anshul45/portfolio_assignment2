@@ -1,7 +1,7 @@
 import Isotope from "isotope-layout";
 import { useEffect, useRef, useState } from "react";
 
-const Work = () => {
+const Work = ({data, title}) => {
   // Isotope
   const isotope = useRef();
   const [filterKey, setFilterKey] = useState("*");
@@ -31,7 +31,7 @@ const Work = () => {
             <div className="section-title">
               <h3 className="dark-color text-uppercase">LATEST WORKS</h3>
               <p className="text-uppercase small">
-                A Lead UX &amp; UI designer based in Canada
+                {title?title:""}
               </p>
             </div>
           </div>
@@ -39,84 +39,31 @@ const Work = () => {
       </div>
       <div className="container">
         <div className="portfolio-content lightbox-gallery">
+          {/* grid item */}
+          {data && data.map((work) => (
+           <div key={work._id}>
           <div className="grid-item product branding">
             <div className="portfolio-box-01">
               <div className="portfolio-img">
-                <img src="static/img/portfolio-1.jpg" alt="image" />
+                <img src={work.image.url} alt="image" />
               </div>
               <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
+                <h5>{work.title}</h5>
+                <div>
+                  {work.techStack.map(tech => 
+                    (
+
+                <span key={tech}>{tech}</span>
+                    ))}
+                </div>
               </div>
               <a className="link-overlay" href="#" />
             </div>
           </div>{" "}
-          {/* grid item */}
-          <div className="grid-item product branding">
-            <div className="portfolio-box-01">
-              <div className="portfolio-img">
-                <img src="static/img/portfolio-6.jpg" alt="image" />
-              </div>
-              <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
-              </div>
-              <a className="link-overlay" href="#" />
-            </div>
-          </div>{" "}
-          {/* grid item */}
-          <div className="grid-item product branding">
-            <div className="portfolio-box-01">
-              <div className="portfolio-img">
-                <img src="static/img/portfolio-2.jpg" alt="image" />
-              </div>
-              <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
-              </div>
-              <a className="link-overlay" href="#" />
-            </div>
-          </div>{" "}
-          {/* grid item */}
-          <div className="grid-item product branding">
-            <div className="portfolio-box-01">
-              <div className="portfolio-img">
-                <img src="static/img/portfolio-3.jpg" alt="image" />
-              </div>
-              <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
-              </div>
-              <a className="link-overlay" href="#" />
-            </div>
-          </div>{" "}
-          {/* grid item */}
-          <div className="grid-item product branding">
-            <div className="portfolio-box-01">
-              <div className="portfolio-img">
-                <img src="static/img/portfolio-4.jpg" alt="image" />
-              </div>
-              <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
-              </div>
-              <a className="link-overlay" href="#" />
-            </div>
-          </div>{" "}
-          {/* grid item */}
-          <div className="grid-item product branding">
-            <div className="portfolio-box-01">
-              <div className="portfolio-img">
-                <img src="static/img/portfolio-5.jpg" alt="image" />
-              </div>
-              <div className="portfolio-info">
-                <h5>Our Photography</h5>
-                <span>Design</span>
-              </div>
-              <a className="link-overlay" href="#" />
-            </div>
-          </div>{" "}
-          {/* grid item */}
+           </div>
+            ))}
+            {/* grid item */}
+        
         </div>{" "}
         {/* portfolio-content */}
       </div>

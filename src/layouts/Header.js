@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Accordion } from "react-bootstrap";
 import { tony } from "./utils";
 
-const Header = ({ headerColor, isTransparent }) => {
+const Header = ({ headerColor, isTransparent, name }) => {
   useEffect(() => {
     tony.stickyNav();
     tony.scrollToActiveNav();
@@ -12,14 +12,13 @@ const Header = ({ headerColor, isTransparent }) => {
     <header>
       <Accordion>
         <nav
-          className={`navbar header-nav header-${
-            headerColor ? headerColor : "white"
-          } ${isTransparent ? "header-transparent" : ""} navbar-expand-lg`}
+          className={`navbar header-nav header-${headerColor ? headerColor : "white"
+            } ${isTransparent ? "header-transparent" : ""} navbar-expand-lg`}
         >
           <div className="container">
             {/* Brand */}
             <a className="navbar-brand" href="index.html">
-              Tony <span className="theme-bg" />
+              {name} <span className="theme-bg" />
             </a>
             {/* / */}
             {/* Mobile Toggle */}

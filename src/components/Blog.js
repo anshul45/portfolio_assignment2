@@ -1,4 +1,4 @@
-const Blog = () => {
+const Blog = ({ title }) => {
   return (
     <section id="blog" className="section white-bg">
       <div className="container">
@@ -7,7 +7,7 @@ const Blog = () => {
             <div className="section-title">
               <h3 className="dark-color text-uppercase">Latest Blogs</h3>
               <p className="text-uppercase small">
-                A Lead UX &amp; UI designer based in Canada
+                {title}
               </p>
             </div>
           </div>

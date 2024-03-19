@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-const Layout = ({ children, headerColor, isTransparent }) => {
+const Layout = ({ children, headerColor, isTransparent, name }) => {
   return (
     <Fragment>
-      <Header headerColor={headerColor} isTransparent={isTransparent} />
+      <Header headerColor={headerColor} name={name} isTransparent={isTransparent} />
       <main>{children}</main>
       <Footer />
     </Fragment>

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST={}
+self.__REACT_LOADABLE_MANIFEST={"index-03.jsx -> @/src/components/Work":{"id":"index-03.jsx -> @/src/components/Work","files":["static/chunks/src_components_Work_js.js"]}}

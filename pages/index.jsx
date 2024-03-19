@@ -1,7 +1,19 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [fetchedData, setFetchedData] = useState([])
+
+  const apiData = async () => {
+    const data = await fetch("http://localhost:3000/api/data");
+    const userData = await data.json();
+    setFetchedData(userData.user)
+  }
+
+  useEffect(() => {
+    apiData()
+  }, [])
   return (
     <main>
       <Head>
@@ -13,7 +25,7 @@ const Index = () => {
             <div className="col-md-12 col-lg-9 text-center">
               <div className="section-title text-center">
                 <h2 className="white-color">
-                  Tony – Bootstrap Portfolio Template.
+                  {fetchedData?.about?.name.split(" ")[0]} – Bootstrap Portfolio Template.
                 </h2>
                 <div className="btn-bar p-15px-t">
                   <a
@@ -146,7 +158,7 @@ const Index = () => {
               <span className="dark-color">You are at the right step now</span>
               <div className="clearfix" />
               <h3 className="font-alt dark-color p-30px-b">
-                Purchase The <span className="theme-color">tony</span> and Make
+                Purchase The <span className="theme-color">{fetchedData?.about?.name.split(" ")[0]}</span> and Make
                 Your Own Bootstrap Based Landing Page Templates.
               </h3>
               <div className="clearfix" />

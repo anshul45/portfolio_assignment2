@@ -1,16 +1,18 @@
 import TypeIt from "typeit-react";
 
-const TypingAnimation = () => {
+const TypingAnimation = ({ text }) => {
   return (
     <span className="type-it">
-      <TypeIt
-        options={{
-          speed: 200,
-          loop: true,
-          strings: ["Designer", "Developer"],
-          breakLines: false,
-        }}
-      />
+      {text && (
+        <TypeIt
+          options={{
+            speed: 200,
+            loop: true,
+            strings: [text],
+            breakLines: false,
+          }}
+        />
+      )}
     </span>
   );
 };

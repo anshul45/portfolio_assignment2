@@ -8,14 +8,31 @@ import Layout from "@/src/layouts/Layout";
 import Services from "@/src/components/Services";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import Preloader from "@/src/layouts/Preloader";
 
 const Work = dynamic(() => import("@/src/components/Work"), {
   ssr: false,
 });
 
 const Index5 = () => {
+  const [fetchedData, setFetchedData] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const apiData = async () => {
+    setLoading(true)
+    const data = await fetch("http://localhost:3000/api/data");
+    const userData = await data.json();
+    setFetchedData(userData.user)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    apiData()
+  }, [])
   return (
     <Layout headerColor={"dark"} isTransparent={true}>
+      {loading && <Preloader />}
       <Head>
         <link href="static/style/master-pink.css" rel="stylesheet" />
       </Head>
@@ -25,15 +42,14 @@ const Index5 = () => {
           <div className="row align-items-center">
             <div
               className="col-md-6 full-scree bg-cover"
-              style={{ backgroundImage: "url(static/img/home-banner-2.jpg)" }}
+              style={{ backgroundImage: `url(${fetchedData?.about?.avatar?.url})` }}
             ></div>
             <div className="col-md-6">
               <div className="ht-text">
                 <h6>Hello There!</h6>
-                <h1>I'm Rachel Roth</h1>
+                <h1>I'm {fetchedData?.about?.name}</h1>
                 <p>
-                  I'm the pixel crafter based in Canada. I make the visual to be
-                  more interactive.
+                  {fetchedData?.about?.subTitle}
                 </p>
                 <div className="nav social-icons">
                   <a href="#">
@@ -60,24 +76,24 @@ const Index5 = () => {
 
       {/* End Home Banner */}
       {/* about us */}
-      <About />
+      <About data={fetchedData?.about} email={fetchedData?.email} />
       {/* end about us */}
       {/* fun */}
-      <Skills />
+      <Skills data={fetchedData?.skills} title={fetchedData?.about?.title} />
       {/* End fun */}
       {/* resume */}
-      <Services />
+      <Services data={fetchedData?.services} title={fetchedData?.about?.title} />
       {/* End resume */}
       {/* Work */}
-      <Work />
+      <Work data={fetchedData?.projects} title={fetchedData?.about?.title} />
       {/* End work */}
       {/* Testiminails */}
-      <Testiminails />
+      <Testiminails data={fetchedData?.testimonials} title={fetchedData?.about?.title} />
       {/* End Testiminails */}
       {/* Blog */}
-      <Blog />
+      <Blog title={fetchedData?.about?.title} />
       {/* End Blog */}
-      <Contact />
+      <Contact title={fetchedData?.about?.title} contactEmail={fetchedData?.email} phone={fetchedData?.about?.phoneNumber} address={fetchedData?.about?.address} />
     </Layout>
   );
 };

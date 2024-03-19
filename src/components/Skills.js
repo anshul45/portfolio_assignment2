@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { tony } from "../layouts/utils";
 
-const Skills = () => {
+const Skills = ({ data, title }) => {
   useEffect(() => {
     tony.activeSkillProgress();
   }, []);
@@ -13,7 +13,7 @@ const Skills = () => {
             <div className="section-title">
               <h3 className="dark-color text-uppercase">My Skills</h3>
               <p className="text-uppercase small">
-                A Lead UX &amp; UI designer based in Canada
+                {title}
               </p>
             </div>
           </div>
@@ -21,69 +21,26 @@ const Skills = () => {
         <div className="row justify-content-between">
           <div className="col-lg-6 m-15px-tb">
             {/* skill */}
-            <div className="skill-lt">
-              <h6 className="dark-color">HTML5</h6>
-              <div className="skill-bar">
-                <div
-                  className="skill-bar-in theme-bg"
-                  role="progressbar"
-                  aria-valuenow={92}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <span>92%</span>
+            {data && data.map((skill, index) => (
+
+              <div className="skill-lt" key={skill._id}>
+                <div className="d-flex mb-1">
+                  <img alt="skil" src={skill.image.url} width={30} />
+                  <h6 className="dark-color ml-2">{skill.name}</h6>
+                </div>
+                <div className="skill-bar">
+                  <div
+                    className="skill-bar-in theme-bg"
+                    role="progressbar"
+                    aria-valuenow={skill.percentage}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <span>{skill.percentage}%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* end skill */}
-            {/* skill */}
-            <div className="skill-lt">
-              <h6 className="dark-color">WordPress</h6>
-              <div className="skill-bar">
-                <div
-                  className="skill-bar-in theme-bg"
-                  role="progressbar"
-                  aria-valuenow={72}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <span>75%</span>
-                </div>
-              </div>
-            </div>
-            {/* end skill */}
-            {/* skill */}
-            <div className="skill-lt">
-              <h6 className="dark-color">Magento</h6>
-              <div className="skill-bar">
-                <div
-                  className="skill-bar-in theme-bg"
-                  role="progressbar"
-                  aria-valuenow={86}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <span>86%</span>
-                </div>
-              </div>
-            </div>
-            {/* /skill */}
-            {/* end skill */}
-            {/* skill */}
-            <div className="skill-lt">
-              <h6 className="dark-color">UI/UX</h6>
-              <div className="skill-bar">
-                <div
-                  className="skill-bar-in theme-bg"
-                  role="progressbar"
-                  aria-valuenow={88}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <span>88%</span>
-                </div>
-              </div>
-            </div>
+            ))}
             {/* end skill */}
           </div>
           <div className="col-lg-5 m-15px-tb">

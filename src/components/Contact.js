@@ -1,7 +1,7 @@
 import emailjs from "emailjs-com";
 import { useState } from "react";
 
-const Contact = () => {
+const Contact = ({ title, contactEmail, phone, address }) => {
   const [mailData, setMailData] = useState({
     name: "",
     email: "",
@@ -56,7 +56,7 @@ const Contact = () => {
             <div className="section-title">
               <h3 className="dark-color text-uppercase">Get in touch</h3>
               <p className="text-uppercase small">
-                A Lead UX &amp; UI designer based in Canada
+                {title}
               </p>
             </div>
           </div>
@@ -75,9 +75,8 @@ const Contact = () => {
                       value={name}
                       id="name"
                       placeholder="Name *"
-                      className={`form-control ${
-                        error ? (name.length !== 0 ? "" : "invalid") : ""
-                      }`}
+                      className={`form-control ${error ? (name.length !== 0 ? "" : "invalid") : ""
+                        }`}
                       type="text"
                     />
                     <span className="input-focus-effect theme-bg" />
@@ -91,9 +90,8 @@ const Contact = () => {
                       value={email}
                       id="email"
                       placeholder="Email *"
-                      className={`form-control ${
-                        error ? (email.length !== 0 ? "" : "invalid") : ""
-                      }`}
+                      className={`form-control ${error ? (email.length !== 0 ? "" : "invalid") : ""
+                        }`}
                       type="email"
                     />
                     <span className="input-focus-effect theme-bg" />
@@ -107,9 +105,8 @@ const Contact = () => {
                       value={subject}
                       id="subject"
                       placeholder="Subject *"
-                      className={`form-control ${
-                        error ? (subject.length !== 0 ? "" : "invalid") : ""
-                      }`}
+                      className={`form-control ${error ? (subject.length !== 0 ? "" : "invalid") : ""
+                        }`}
                       type="text"
                     />
                     <span className="input-focus-effect theme-bg" />
@@ -124,9 +121,8 @@ const Contact = () => {
                       id="message"
                       placeholder="Your message *"
                       rows={3}
-                      className={`form-control ${
-                        error ? (message.length !== 0 ? "" : "invalid") : ""
-                      }`}
+                      className={`form-control ${error ? (message.length !== 0 ? "" : "invalid") : ""
+                        }`}
                     />
                     <span className="input-focus-effect theme-bg" />
                   </div>
@@ -162,7 +158,7 @@ const Contact = () => {
               <div className="media-body">
                 <h6 className="dark-color font-alt">Our Address</h6>
                 <p>
-                  123 Stree New York City , United States Of America 750065.
+                  {address}
                 </p>
               </div>
             </div>
@@ -173,10 +169,7 @@ const Contact = () => {
               <div className="media-body">
                 <h6 className="dark-color font-alt">Our Phone</h6>
                 <p>
-                  Office: +004 44444 44444
-                  <br />
-                  Office: +004 44444 44444
-                  <br />
+                  {phone}
                 </p>
               </div>
             </div>
@@ -187,9 +180,7 @@ const Contact = () => {
               <div className="media-body">
                 <h6 className="dark-color font-alt">Our Email</h6>
                 <p>
-                  info@domainname.com
-                  <br />
-                  contact@domainname.com
+                  {contactEmail}
                 </p>
               </div>
             </div>
